@@ -1,7 +1,7 @@
 .data #Cadastra as mensagens de texto
-	msg01: .asciiz"\nDigite 1° valor: "
-	msg02: .asciiz"\nDigite 2° valor: "
-	msg03: .asciiz"\nResto da divisão: "
+	msg01: .asciiz"\nDigite 1Â° valor: "
+	msg02: .asciiz"\nDigite 2Â° valor: "
+	msg03: .asciiz"\nResto da divisÃ£o: "
 .text
 main:	#VALOR
 	li $v0, 4
@@ -24,15 +24,17 @@ main:	#VALOR
 	add $t1, $v0, 0
 	
 se:
-	bgt $t1, $t0, senao # SE T0 É MAIOR
+	bgt $t1, $t0, senao # SE t1 Ã‰ MAIOR
 	add $t3, $t1, 0
 equanto:
 	add $t1, $t1, $t3
 	bgt $t0, $t1, equanto
 	
-	bge $t1 , $t2, consertar
+	bgt $t1, $t0, consertar
+	j continuar
 consertar:
-	sub $t1, $t3, 0
+	sub $t1, $t1, $t3
+continuar:
 	sub $s0, $t0, $t1
 	
 	li $v0, 4
@@ -47,13 +49,14 @@ consertar:
 senao:
 	add $t3, $t0, 0
 equanto2:
-	
 	add $t0, $t0, $t3
 	bgt $t1, $t0, equanto2
 	
-	bge $t1 , $t2, consertar2
+	bgt $t0, $t1, consertar2
+	j continuar2
 consertar2:
-	sub $t0, $t3, 0
+	sub $t0, $t0, $t3
+continuar2:
 	sub $s0, $t1, $t0
 	
 	li $v0, 4
